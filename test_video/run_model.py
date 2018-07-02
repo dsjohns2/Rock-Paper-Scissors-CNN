@@ -37,38 +37,6 @@ class Net(nn.Module):
 		x = self.fc3(x)
 		return x
 
-class RPSDataset(torch.utils.data.Dataset):
-	""" Rock Paper Scissors Dataset Class """
-	def __init__(self, train=True):
-		self.metadata = []
-		self.train = train
-		if(train):
-			metadata_file = "./data/train/metadata.txt"
-		else:
-			metadata_file = "./data/test/metadata.txt"
-		f = open(metadata_file, "r")
-		for line in f:
-			elem = line.split()
-			elem[1] = int(elem[1])
-			self.metadata.append(elem)
-	
-	def __len__(self):
-		return len(self.metadata)
-
-	def __getitem__(self, idx):
-		if(self.train):
-			image_name = "./data/train/" + self.metadata[idx][0]
-		else:
-			image_name = "./data/test/" + self.metadata[idx][0]
-		image = io.imread(image_name)
-		label = self.metadata[idx][1]
-
-		transform = transforms.Compose([transforms.ToTensor(),transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
-		image = transform(image)
-
-		data_tuple = (image, label)
-		return data_tuple
-
 # Load the neural net
 net = torch.load("model.pt")
 
