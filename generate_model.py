@@ -95,6 +95,7 @@ for epoch in range(10):
 
 # Save the neural net
 torch.save(net, "model.pt")
+torch.save(net, "run_on_stream/model.pt")
 
 # Test the neural net
 num_correct = 0

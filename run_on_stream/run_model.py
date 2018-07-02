@@ -61,30 +61,42 @@ def play():
 		X = torch.from_numpy(X)
 		y_guess = np.argmax(net(X).detach().numpy())
 		guess = classes[y_guess]
-		if(guess != "nothing"):
-			if(game_strategy == 0):
-				# Always win
-				path = image_paths[(y_guess+1)%3]
-				print(classes[(y_guess+1)%3])
-			elif(game_strategy == 1):
-				# Always lose
-				path = image_paths[(y_guess-1)%3]
-				print(classes[(y_guess-1)%3])
+		# Check that last n matches agree
+		lastn.append(y_guess)
+		del(lastn[0])
+		agree = True
+		for i in range(len(lastn)):
+			if(lastn[i] != lastn[0]):
+				agree = False
+		if(agree):
+			if(guess != "nothing"):
+				if(game_strategy == 0):
+					# Always win
+					path = image_paths[(y_guess+1)%3]
+					print(classes[(y_guess+1)%3])
+				elif(game_strategy == 1):
+					# Always lose
+					path = image_paths[(y_guess-1)%3]
+					print(classes[(y_guess-1)%3])
+				else:
+					# Always tie
+					path = image_paths[y_guess]
+					print(classes[y_guess])
 			else:
-				# Always tie
-				path = image_paths[y_guess]
-				print(classes[y_guess])
+				path = image_paths[3]
 		else:
 			path = image_paths[3]
+		# Use path to update gui picture
 		img = ImageTk.PhotoImage(Image.open(path))
 		panel.configure(image=img)
 		panel.image = img
-	window.after(100, play)
+	window.after(10, play)
 
 # Set Game Strategy
 if(len(sys.argv) != 2):
 	sys.exit()
 else:
+	# 0 - comp wins, 1 - comp loses, 2 - tie
 	game_strategy = int(sys.argv[1])
 
 # Set up neural net 
@@ -100,5 +112,9 @@ path = "nothing.jpg"
 img = ImageTk.PhotoImage(Image.open(path))
 panel = tk.Label(window, image = img)
 panel.pack(side = "bottom", fill = "both", expand = "yes")
+n = 5
+lastn = []
+for i in range(n):
+	lastn.append(3)
 window.after(2000, play)
 window.mainloop()
