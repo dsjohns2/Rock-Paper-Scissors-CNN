@@ -79,7 +79,7 @@ optimizer = optim.SGD(net.parameters(), lr=0.001, momentum=0.9)
 classes = ("rock", "paper", "scissors", "nothing")
 
 # Train the neural net
-for epoch in range(50):
+for epoch in range(100):
 	print("Epoch: " + str(epoch))
 	average_loss = 0
 	for i, elem in enumerate(trainloader):
