@@ -5,7 +5,7 @@ train_data_portion = .8
 train_metadata = []
 test_metadata = []
 counter = 0
-for label, elem in enumerate(["rock_images", "paper_images", "scissors_images"]):
+for label, elem in enumerate(["rock_images", "paper_images", "scissors_images", "nothing_images"]):
 	img_num = float(len(os.listdir(elem)))
 	for i, image_name in enumerate(os.listdir(elem)):
 		if(i/img_num < train_data_portion):

@@ -4,6 +4,7 @@
 rm rock_images -r
 rm paper_images -r
 rm scissors_images -r
+rm nothing_images -r
 rm ../test -r
 rm ../train -r
 
@@ -11,6 +12,7 @@ rm ../train -r
 mkdir rock_images
 mkdir paper_images
 mkdir scissors_images
+mkdir nothing_images
 mkdir ../test
 mkdir ../train
 
