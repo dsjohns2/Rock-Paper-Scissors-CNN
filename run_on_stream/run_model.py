@@ -94,6 +94,7 @@ def play():
 
 # Set Game Strategy
 if(len(sys.argv) != 2):
+	print("Provide one integer argument:\n0 - Computer Wins\n1 - Computer Loses\n2 - Tie")
 	sys.exit()
 else:
 	# 0 - comp wins, 1 - comp loses, 2 - tie
