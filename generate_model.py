@@ -96,13 +96,13 @@ for epoch in range(50):
 # Save the neural net
 torch.save(net, "model.pt")
 
-### REWRITE BELOW
+# Test the neural net
 num_correct = 0
 testset = RPSDataset(train=False)
-testloader = torch.utils.data.DataLoader(testset, batch_size=batch_size, shuffle=False, num_workers=2)
+testloader = torch.utils.data.DataLoader(testset, batch_size=1, shuffle=True, num_workers=2)
 for data in testloader:
 	X, y_real = data
-	y_real = y_real.detach().numpy()
+	y_real = y_real.detach().numpy()[0]
 	y_guess = np.argmax(net(X).detach().numpy())
 	if(y_real == y_guess):
 		num_correct += 1
